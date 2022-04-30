@@ -22,6 +22,35 @@ router.get("/cart", async function (req, res, next) {
 
 
 
+router.get("/cart_item/:cartId", async function (req, res, next) {
+    const cartId = req.params.cartId
+    console.log(cartId)
+    
+    try {
+        let query = `select *
+        from CART_ITEM where cart_id=?`
+        const [rows, _] = await pool.query(query, [cartId]);
+        res.send(rows)
+      } catch (error) {
+        return res.status(500).json(error)
+        
+      }
+})
+
+router.get("/cart_item", async function (req, res, next) {
+    try {
+        let query = `select *
+        from CART_ITEM`
+        const [rows, _] = await pool.query(query);
+        res.send(rows)
+      } catch (error) {
+        return res.status(500).json(error)
+        
+      }
+})
+
+
+
 router.get("/cart/:cartId", async function (req, res, next) {
     const cartId = req.params.cartId
     console.log(cartId)
