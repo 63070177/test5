@@ -26,9 +26,9 @@ router.get("/order/item/:custId", async function (req, res, next) {
   console.log(custId)
   
   try {
-      let query = `SELECT *
+      let query = `SELECT *, unit_price*quantity price_sum
       FROM CART_ITEM
-      JOIN CART
+      JOIN CART c
       USING (cart_id)
       JOIN BOOK
       USING (book_id)
@@ -37,25 +37,9 @@ router.get("/order/item/:custId", async function (req, res, next) {
       res.send(rows)
     } catch (error) {
       return res.status(500).json(error)
-      
     }
 })
 
-router.delete("/order/delete/:custId", async function (req, res, next) {
-  try {
-    let query = `SET @custcart := (
-      SELECT cart_id
-      FROM CART
-      WHERE customer_id = ?
-      );
-      
-      DELETE FROM CART_ITEM WHERE cart_id = @custcart;
-      DELETE FROM CART WHERE cart_id = @custcart`
-    const [rows, _] = await pool.query(query, [custId]);
-    res.send(rows)
-  } catch (error) {
-    return res.status(500).json(error)
-  }
-});
 
 exports.router = router
+
