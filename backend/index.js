@@ -10,10 +10,14 @@ app.use(express.urlencoded({ extended: true })) // for parsing application/x-www
 const indexRouter = require('./routes/index')
 const booksRouter = require('./routes/books')
 const userRouter = require('./routes/user')
+const cartRouter = require('./routes/cart')
+const orderRouter = require('./routes/order')
 
 app.use(indexRouter.router)
 app.use(booksRouter.router)
 app.use(userRouter.router)
+app.use(cartRouter.router)
+app.use(orderRouter.router)
 
 app.listen(3000, function () {
     console.log('Example app listening on port 3000')
