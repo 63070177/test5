@@ -44,6 +44,16 @@ const routes = [
     name: 'barPage',
     component: () => import('../views/barPage.vue')
   },
+  {
+    path: '/cart/:bookId/:userId',
+    name: 'cartPage',
+    component: () => import('../views/cartPage.vue')
+  },
+  {
+    path: '/order/:userId',
+    name: 'orderPage',
+    component: () => import('../views/orderPage.vue')
+  },
   
 ]
 
